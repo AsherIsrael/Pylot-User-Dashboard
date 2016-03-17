@@ -1,0 +1,27 @@
+.headbar{
+	width: 100%;
+	outline: 1px black solid;
+}
+
+	.headbar p{
+		display: inline;
+	}
+
+.splash{
+	background-color: grey;
+	width: 70%;
+	height: 10em;
+	margin-left: 15%;
+	margin-top: 2%;
+	padding: 1em;
+}
+
+.bottom_content{
+	width: 70%;
+	margin-left: 15%;
+}
+
+.lower_info{
+	display: inline-block;
+	width: 33%;
+}

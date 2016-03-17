@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Dashboard</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/static/dashboard/css/style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="headbar">
+				<p>Test App</p>
+				{% if session['user_level'] %}
+					<a href="/users/edit">Profile</a>
+				{% endif %}
+				<a href="/users/logoff">Log off</a>
+			</div>
+			{% if session['authorization'] == 0 %}
+				<h1>All Users</h1>
+			{% else %}
+				<h1>Manage Users</h1>
+				<a href="/users/new"><button>Add new</button></a>
+			{% endif %}
+			<table border='1'>
+			<tr>
+				<td>ID</td>
+				<td>Name^</td>
+				<td>email</td>
+				<td>created_at</td>
+				<td>user_level</td>
+				{% if session['authorization'] == 9: %}
+					<td>actions</td>
+				{% endif %}
+			</tr>
+			{% for user in users %}
+			<tr>
+				<td>{{user['id']}}</td>
+				<td>{{user['name']}}</td>
+				<td>{{user['email']}}</td>
+				<td>{{user['created_at']}}</td>
+				{% if user['user_level'] == 0: %}
+					<td>normal</td>
+				{% else %}
+					<td>admin</td>
+				{% endif %}
+				{% if session['authorization'] == 9: %}
+					<td><a href="/users/edit/{{user['id']}}">Edit</a> <a href="/users/destroy/{{user['id']}}">Remove</a></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Login</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/static/dashboard/css/style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="headbar">
+				<p>Test App</p>
+				<p>Home</p>
+				<a href="/users/login">Sign in</a>
+			</div>
+			<h2>Login</h2>
+			<form action="/users/loggedon" method="POST">
+				Email Address:<input type="text" name="email"><br>
+				Password:<input type="text" name="password"><br>
+				<button type="submit">Log in</button>
+			</form>
+			<a href="/users/login">Already have an account? Login</a>
+		</div>
+	</body>
+</html>
