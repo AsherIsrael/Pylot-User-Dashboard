@@ -17,17 +17,19 @@ from system.core.router import routes
     The automatically generated routes respond to all of the http verbs (GET, POST, PUT, PATCH, DELETE)
 """
 routes['default_controller'] = 'Users'
-routes['GET']['/users/register'] = 'Users#display_register'
-routes['GET']['/users/login'] = 'Users#display_login'
-routes['GET']['/users/new'] = 'Users#display_new'
-routes['GET']['/users/logoff'] = 'Users#logoff'
-routes['POST']['/users/try_register'] = 'Users#create_user'
-routes['POST']['/users/loggedon'] = 'Users#login'
-routes['GET']['/users/dashboard'] = 'Users#dashboard'
-routes['GET']['/users/edit'] = 'Users#edit'
-routes['GET']['/users/edit/<id>'] = 'Users#admin_edit'
-routes['POST']['/users/edit_info'] = 'Users#edit_info'
-routes['POST']['/users/change_description'] = 'Users#change_description'
+routes['GET']['/register'] = 'Users#display_register'
+routes['GET']['/login'] = 'Users#display_login'
+routes['GET']['/new'] = 'Users#display_new'
+routes['GET']['/logoff'] = 'Users#logoff'
+routes['POST']['/try_register'] = 'Users#create_user'
+routes['POST']['/loggedon'] = 'Users#login'
+routes['GET']['/dashboard'] = 'Users#dashboard'
+routes['GET']['/edit/<id>'] = 'Users#admin_edit'
+routes['GET']['/edit'] = 'Users#edit'
+routes['POST']['/edit_info'] = 'Users#edit_info'
+routes['POST']['/change_description'] = 'Users#change_description'
+routes['POST']['/change_password'] = 'Users#change_password'
+routes['GET']['/show/<id>'] = 'Users#show'
 """
     You can add routes and specify their handlers as follows:
 

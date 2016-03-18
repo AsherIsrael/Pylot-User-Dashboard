@@ -13,17 +13,23 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				<p>Home</p>
-				<a href="/users/logoff">logoff</a>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
+				{% endif %}
 			</div>
-			{% if session['authorization'] == 9 %}
+			{% if session['authorization'] == 9 and not session['user_id'] == user['id'] %}
 				<h2 class="inlineblock page_head">Edit user #{{user['id']}}</h2>
-				<a class="inlineblock" href="/users/dashboard"><button>Return to Dashboard</button></a>
+				<a class="inlineblock" href="/dashboard"><button>Return to Dashboard</button></a>
 			{% else %}
 				<h2>Edit profile</h2>
 			{% endif %}
 			<div class="editbox inlineblock">
-				<form action="/users/update_info" method="POST">
+				<form action="/update_info" method="POST">
 					<p>Email Address:</p>
 					<input type="text" value="{{user['email']}}" name="email"><br><br>
 					<p>First Name:</p>
@@ -34,14 +40,22 @@
 						<p>User Level:</p>
 						<select name="set_level">
 							<option value="9">Admin</option>
-							<option value="0">Normal </option>
+							<option value="1">Normal </option>
 						</select>
 					{% endif %}
 					<button type="submit">Save</button>
 				</form>
 			</div>
 			<div class="editbox inlineblock">
-				<form action='/users/change_password'>
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						{% for message in messages %}
+							<p>{{message}}</p>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+				<form action='/change_password' method='POST'>
+					<input type="hidden" value="{{user['id']}}" name="user_id">
 					<p>Password:</p>
 					<input type="text" name="password"><br><br>
 					<p>Password Confirmation:</p>
@@ -49,10 +63,10 @@
 					<button type="submit">Update Password</button>
 				</form>
 			</div>
-			{% if session['authorization'] == 0 %}
+			{% if session['authorization'] == 1 or session['user_id'] == user['id'] %}
 			<div class="descriptionbox">
 				<p>Edit Description</p>
-				<form action="/users/change_description">
+				<form action="/change_description">
 					<textarea class="description"></textarea><br>
 					<button type="submit">Save</button>
 				</form>

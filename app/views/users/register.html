@@ -13,16 +13,29 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				<p>Home</p>
-				<a href="/users/login">Sign in</a>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
+				{% endif %}
 			</div>
 			{% if session['authorization'] == 9 %}
 				<h2 class="inlineblock page_head">Add a new user</h2>
-				<a href="/users/dashboard"><button>Return to Dashboard</button></a>
+				<a href="/dashboard"><button>Return to Dashboard</button></a>
 			{% else %}
 				<h2 class="inlineblock page_head">Register</h2>
 			{% endif %}
-			<form action="/users/try_register" method="POST">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						<p>{{message}}</p>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+			<form action="/try_register" method="POST">
 				Email Address:<input type="text" name="email"><br>
 				First Name:<input type="text" name="first_name"><br>
 				Last Name:<input type="text" name="last_name"><br>
@@ -34,8 +47,8 @@
 					<button type="submit">Register</button>
 				{% endif %}
 			</form>
-			{% if session['authorization'] == 0 %}
-				<a href="/users/login">Already have an account? Login</a>
+			{% if session['authorization'] == 1 %}
+				<a href="/login">Already have an account? Login</a>
 			{% endif %}
 		</div>
 	</body>

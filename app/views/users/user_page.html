@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>User Information</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/static/dashboard/css/style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="headbar">
+				<p>Test App</p>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
+				{% endif %}
+			</div>
+			<h2>{{user['first_name']}} {{user['last_name']}}</h2>
+			<p>Registered at: {{user['created_at']}}</p>
+			<p>User ID: {{user['id']}}</p>
+			<p>Email Address: {{user['email']}}</p>
+			<p>Description: {{user['description']}}</p>
+		</div>
+	</body>
+</html>

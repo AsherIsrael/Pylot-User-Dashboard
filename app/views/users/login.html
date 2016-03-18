@@ -9,16 +9,22 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				<p>Home</p>
-				<a href="/users/login">Sign in</a>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
+				{% endif %}
 			</div>
 			<h2>Login</h2>
-			<form action="/users/loggedon" method="POST">
+			<form action="/loggedon" method="POST">
 				Email Address:<input type="text" name="email"><br>
 				Password:<input type="text" name="password"><br>
 				<button type="submit">Log in</button>
 			</form>
-			<a href="/users/login">Already have an account? Login</a>
+			<a href="/register">Don't have an account? Register</a>
 		</div>
 	</body>
 </html>

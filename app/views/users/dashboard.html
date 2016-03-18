@@ -9,15 +9,18 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				<p>{{session['authorization']}}</p>
-				{% if session %}
-					<a href="/users/edit">Profile</a>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
 				{% endif %}
-				<a href="/users/logoff">Log off</a>
 			</div>
 			{% if session['authorization'] == 9 %}
 				<h2 class="inlineblock page_head">Manage Users</h2>
-				<a class="inlineblock" href="/users/new"><button>Add new</button></a>
+				<a class="inlineblock" href="/new"><button>Add new</button></a>
 			{% else %}
 				<h2 class="inlineblock page_head">All Users</h2>
 			{% endif %}
@@ -35,16 +38,20 @@
 			{% for user in users %}
 			<tr>
 				<td>{{user['id']}}</td>
-				<td>{{user['name']}}</td>
+				{% if user['id'] == session['user_id'] %}
+					<td><a href="/edit">{{user['name']}}</a></td>
+				{% else %}
+					<td>{{user['name']}}</td>
+				{% endif %}
 				<td>{{user['email']}}</td>
 				<td>{{user['created_at']}}</td>
-				{% if user['user_level'] == 0: %}
+				{% if user['user_level'] == 1: %}
 					<td>normal</td>
 				{% else %}
 					<td>admin</td>
 				{% endif %}
 				{% if session['authorization'] == 9: %}
-					<td><a href="/users/edit/{{user['id']}}">Edit</a> <a href="/users/destroy/{{user['id']}}">Remove</a></td>
+					<td><a href="/edit/{{user['id']}}">Edit</a> <a href="/destroy/{{user['id']}}">Remove</a></td>
 				{% endif %}
 			</tr>
 			{% endfor %}

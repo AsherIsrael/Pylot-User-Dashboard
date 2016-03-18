@@ -9,13 +9,19 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				<p>Home</p>
-				<a href="/users/login">Sign in</a>
+				{% if session['authorization'] %}
+					<a href="/dashboard">Dashboard</a>
+					<a href="/show/{{session['user_id']}}">Profile</a>
+					<a href="/logoff">Log off</a>
+				{% else %}
+					<a href="/">Home</a>
+					<a href="/login">Sign in</a>
+				{% endif %}
 			</div>
 			<div class="splash">
 				<h1>Welcome to the Test</h1>
 				<p>We're going to build a cool application using an MVC framework! This application was built with the Village88 folks!</p>
-				<a href="/users/register"><button>Start</button></a>
+				<a href="/register"><button>Start</button></a>
 			</div>
 			<div class="bottom_content">
 				<div class="lower_info">
