@@ -17,10 +17,10 @@
 				<a href="/users/login">Sign in</a>
 			</div>
 			{% if session['authorization'] == 9 %}
-				<h2>Add a new user</h2>
+				<h2 class="inlineblock page_head">Add a new user</h2>
 				<a href="/users/dashboard"><button>Return to Dashboard</button></a>
 			{% else %}
-				<h2>Register</h2>
+				<h2 class="inlineblock page_head">Register</h2>
 			{% endif %}
 			<form action="/users/try_register" method="POST">
 				Email Address:<input type="text" name="email"><br>

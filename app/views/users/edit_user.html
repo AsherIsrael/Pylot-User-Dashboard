@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		{% if session['authorization'] == 9 %}
-			<title>Edit  User</title>
+			<title>Edit User</title>
 		{% else %}
 			<title>Edit Profile</title>
 		{% endif %}
@@ -17,25 +17,46 @@
 				<a href="/users/logoff">logoff</a>
 			</div>
 			{% if session['authorization'] == 9 %}
-				<h2>Edit user #</h2>
-				<a href="/users/dashboard"><button>Return to Dashboard</button></a>
+				<h2 class="inlineblock page_head">Edit user #{{user['id']}}</h2>
+				<a class="inlineblock" href="/users/dashboard"><button>Return to Dashboard</button></a>
 			{% else %}
-				<h2>Register</h2>
+				<h2>Edit profile</h2>
 			{% endif %}
-			<form action="/users/try_register" method="POST">
-				Email Address:<input type="text" name="email"><br>
-				First Name:<input type="text" name="first_name"><br>
-				Last Name:<input type="text" name="last_name"><br>
-				Password:<input type="text" name="password"><br>
-				Password Confirmation:<input type="text" name="pass_confirm"><br>
-				{% if session['authorization'] == 9 %}
-					<button type="submit">Create</button>
-				{% else %}
-					<button type="submit">Register</button>
-				{% endif %}
-			</form>
+			<div class="editbox inlineblock">
+				<form action="/users/update_info" method="POST">
+					<p>Email Address:</p>
+					<input type="text" value="{{user['email']}}" name="email"><br><br>
+					<p>First Name:</p>
+					<input type="text" value="{{user['first_name']}}" name="first_name"><br><br>
+					<p>Last Name:</p>
+					<input type="text" value="{{user['last_name']}}" name="last_name"><br><br>
+					{% if session['authorization'] == 9 %}
+						<p>User Level:</p>
+						<select name="set_level">
+							<option value="9">Admin</option>
+							<option value="0">Normal </option>
+						</select>
+					{% endif %}
+					<button type="submit">Save</button>
+				</form>
+			</div>
+			<div class="editbox inlineblock">
+				<form action='/users/change_password'>
+					<p>Password:</p>
+					<input type="text" name="password"><br><br>
+					<p>Password Confirmation:</p>
+					<input type="text" name="pass_confirm"><br><br>
+					<button type="submit">Update Password</button>
+				</form>
+			</div>
 			{% if session['authorization'] == 0 %}
-				<a href="/users/login">Already have an account? Login</a>
+			<div class="descriptionbox">
+				<p>Edit Description</p>
+				<form action="/users/change_description">
+					<textarea class="description"></textarea><br>
+					<button type="submit">Save</button>
+				</form>
+			</div>
 			{% endif %}
 		</div>
 	</body>

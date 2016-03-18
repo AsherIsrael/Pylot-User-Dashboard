@@ -1,6 +1,29 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+h2{
+	margin-bottom: 1%;
+}
+
+table{
+	width: 70%;
+}
+
+td{
+	padding: .2em;
+}
+
+.wrapper{
+	width: 60%;
+	padding: 1%;
+}
+
 .headbar{
 	width: 100%;
 	outline: 1px black solid;
+	margin-bottom: 1%;
 }
 
 	.headbar p{
@@ -24,4 +47,31 @@
 .lower_info{
 	display: inline-block;
 	width: 33%;
+}
+
+.editbox{
+	vertical-align: top;
+	width: 47%;
+	outline: 1px black solid;
+	padding: 1em;
+}
+
+.descriptionbox{
+	width: 97%;
+	outline: 1px black solid;
+	padding: 1em;
+	margin-top: 1%;
+}
+
+.inlineblock{
+	display: inline-block;
+}
+
+.page_head{
+	width: 50%;
+}
+
+.description{
+	width: 98%;
+	height: 5em;
 }

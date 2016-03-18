@@ -6,10 +6,6 @@ class Users(Controller):
 		self.load_model('User')
 
 	def index(self):
-		try:
-			session['user_level']
-		except:
-			session['user_level'] = 0
 		return self.load_view('users/index.html')
 
 	def display_login(self):
@@ -40,20 +36,26 @@ class Users(Controller):
 		print user
 		session['user_id'] = user['user']['id']
 		session['authorization'] = user['user']['user_level']
-		return redirect('/users/display_dashboard')
-
-	def show(self):
-		pass
+		return redirect('/users/dashboard')
 
 	def edit(self):
-		return self.load_view('/users/edit_user', id=session['id'])
+		user = self.models['User'].get_user(session['user_id'])[0]
+		return self.load_view('/users/edit_user.html', user=user)
 
 	def admin_edit(self, id):
-		if session['user_level'] == 9:
-			return self.load_view('/users/edit_user', id=id)
-		return redirect('/dashboard')
+		if session['authorization'] == 9:
+			print "admin edit"
+			user = self.models['User'].get_user(id)[0]
+			return self.load_view('/users/edit_user.html', user=user)
+		return redirect('/users/dashboard')
 
-	def edit_profile(self):
+	def update_info(self, user):
+		pass
+
+	def change_password(self):
+		pass
+
+	def change_description(self):
 		pass
 
 	def display_new(self):
@@ -75,6 +77,6 @@ class Users(Controller):
 		if result:
 			session['user_id'] = result['id']
 			session['authorization'] = result['user_level']
-			return redirect('/users/display_dashboard')
+			return redirect('/users/dashboard')
 
 		return redirect('/')

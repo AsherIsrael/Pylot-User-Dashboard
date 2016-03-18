@@ -24,8 +24,10 @@ routes['GET']['/users/logoff'] = 'Users#logoff'
 routes['POST']['/users/try_register'] = 'Users#create_user'
 routes['POST']['/users/loggedon'] = 'Users#login'
 routes['GET']['/users/dashboard'] = 'Users#dashboard'
-routes['POST']['/users/edit'] = 'Users#edit'
+routes['GET']['/users/edit'] = 'Users#edit'
 routes['GET']['/users/edit/<id>'] = 'Users#admin_edit'
+routes['POST']['/users/edit_info'] = 'Users#edit_info'
+routes['POST']['/users/change_description'] = 'Users#change_description'
 """
     You can add routes and specify their handlers as follows:
 

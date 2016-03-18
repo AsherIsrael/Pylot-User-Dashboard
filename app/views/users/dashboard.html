@@ -9,16 +9,17 @@
 		<div class="wrapper">
 			<div class="headbar">
 				<p>Test App</p>
-				{% if session['user_level'] %}
+				<p>{{session['authorization']}}</p>
+				{% if session %}
 					<a href="/users/edit">Profile</a>
 				{% endif %}
 				<a href="/users/logoff">Log off</a>
 			</div>
-			{% if session['authorization'] == 0 %}
-				<h1>All Users</h1>
+			{% if session['authorization'] == 9 %}
+				<h2 class="inlineblock page_head">Manage Users</h2>
+				<a class="inlineblock" href="/users/new"><button>Add new</button></a>
 			{% else %}
-				<h1>Manage Users</h1>
-				<a href="/users/new"><button>Add new</button></a>
+				<h2 class="inlineblock page_head">All Users</h2>
 			{% endif %}
 			<table border='1'>
 			<tr>
