@@ -19,17 +19,20 @@ from system.core.router import routes
 routes['default_controller'] = 'Users'
 routes['GET']['/register'] = 'Users#display_register'
 routes['GET']['/login'] = 'Users#display_login'
-routes['GET']['/new'] = 'Users#display_new'
 routes['GET']['/logoff'] = 'Users#logoff'
 routes['POST']['/try_register'] = 'Users#create_user'
 routes['POST']['/loggedon'] = 'Users#login'
 routes['GET']['/dashboard'] = 'Users#dashboard'
 routes['GET']['/edit/<id>'] = 'Users#admin_edit'
 routes['GET']['/edit'] = 'Users#edit'
-routes['POST']['/edit_info'] = 'Users#edit_info'
 routes['POST']['/change_description'] = 'Users#change_description'
 routes['POST']['/change_password'] = 'Users#change_password'
 routes['GET']['/show/<id>'] = 'Users#show'
+routes['POST']['/edit_controller'] = 'Users#edit_controller'
+routes['GET']['/destroy/<id>'] = 'Users#destroy'
+
+routes['POST']['/post_message'] = 'Posts#post_message'
+routes['POST']['/post_comment'] = 'Posts#post_comment'
 """
     You can add routes and specify their handlers as follows:
 

@@ -20,7 +20,7 @@
 			</div>
 			{% if session['authorization'] == 9 %}
 				<h2 class="inlineblock page_head">Manage Users</h2>
-				<a class="inlineblock" href="/new"><button>Add new</button></a>
+				<a class="inlineblock" href="/register"><button>Add new</button></a>
 			{% else %}
 				<h2 class="inlineblock page_head">All Users</h2>
 			{% endif %}
@@ -41,7 +41,7 @@
 				{% if user['id'] == session['user_id'] %}
 					<td><a href="/edit">{{user['name']}}</a></td>
 				{% else %}
-					<td>{{user['name']}}</td>
+					<td><a href="/show/{{user['id']}}">{{user['name']}}</a></td>
 				{% endif %}
 				<td>{{user['email']}}</td>
 				<td>{{user['created_at']}}</td>
@@ -51,7 +51,7 @@
 					<td>admin</td>
 				{% endif %}
 				{% if session['authorization'] == 9: %}
-					<td><a href="/edit/{{user['id']}}">Edit</a> <a href="/destroy/{{user['id']}}">Remove</a></td>
+					<td><a href="/edit/{{user['id']}}">Edit</a> <a href="/destroy/{{user['id']}}" onclick="return confirm('Are you sure you want to remove this user?')">Remove</a></td>
 				{% endif %}
 			</tr>
 			{% endfor %}

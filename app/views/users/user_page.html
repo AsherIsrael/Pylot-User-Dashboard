@@ -18,11 +18,41 @@
 					<a href="/login">Sign in</a>
 				{% endif %}
 			</div>
-			<h2>{{user['first_name']}} {{user['last_name']}}</h2>
-			<p>Registered at: {{user['created_at']}}</p>
-			<p>User ID: {{user['id']}}</p>
-			<p>Email Address: {{user['email']}}</p>
-			<p>Description: {{user['description']}}</p>
+			<h2>{{user['first_name']}} {{user['last_name']}}</h2><br>
+			<p>Registered at: {{user['created_at']}}</p><br>
+			<p>User ID: {{user['id']}}</p><br>
+			<p>Email Address: {{user['email']}}</p><br>
+			<p>Description: {{user['description']}}</p><br>
+			<div class="descriptionbox">
+				<h2>Leave a message for {{user['first_name']}}</h2>
+				<form action="/post_message" method="post">
+					<input type="hidden" value="{{user['id']}}" name="wall_owner">
+					<input type="hidden" value="{{session['user_id']}}" name="poster_id">
+					<textarea class="description" name="post"></textarea><br>
+					<button type="submit">Post</button>
+				</form>
+			</div><br>
+			<div class="user_wall">
+				{% for message in messages %}
+					<span class="align_left"><a href="/show/{{message['user_id']}}">{{message['name']}}</a> wrote</span><span class="align_right">{{message['created_at']}}</span>
+					<p class="message">{{message['content']}}</p>
+					{% for comment in comments %}
+						<div class="comment">
+						{% if comment['message_id'] == message['id'] %}
+							<span class="align_left"><a href="/show/{{comment['id']}}">{{comment['name']}}</a> wrote</span><span class="align_right">{{comment['created_at']}}</span>
+							<p>{{comment['content']}}</p>
+						{% endif %}
+					{% endfor %}	
+							<form action="/post_comment" method="post">
+								<input type="hidden" value="{{user['id']}}" name="wall_owner">
+								<input type="hidden" value="{{message['id']}}" name="message_id">
+								<input type="hidden" value="{{session['user_id']}}" name="poster_id">
+								<textarea class="description" name="comment"></textarea><br>
+								<button type="submit">Post</button>
+							</form><br>
+						</div>
+			{% endfor %}
+			</div>
 		</div>
 	</body>
 </html>

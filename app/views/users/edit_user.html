@@ -28,8 +28,9 @@
 			{% else %}
 				<h2>Edit profile</h2>
 			{% endif %}
-			<div class="editbox inlineblock">
-				<form action="/update_info" method="POST">
+			<form action="/edit_controller" method="POST">
+				<input type="hidden" value="{{user['id']}}" name="user_id">
+				<div class="editbox inlineblock">
 					<p>Email Address:</p>
 					<input type="text" value="{{user['email']}}" name="email"><br><br>
 					<p>First Name:</p>
@@ -42,36 +43,35 @@
 							<option value="9">Admin</option>
 							<option value="1">Normal </option>
 						</select>
+					{% else %}
+						<input type="hidden" value="{{user['user_level']}}" name="user_level">
 					{% endif %}
-					<button type="submit">Save</button>
-				</form>
-			</div>
-			<div class="editbox inlineblock">
-				{% with messages = get_flashed_messages() %}
-					{% if messages %}
-						{% for message in messages %}
-							<p>{{message}}</p>
-						{% endfor %}
-					{% endif %}
-				{% endwith %}
-				<form action='/change_password' method='POST'>
-					<input type="hidden" value="{{user['id']}}" name="user_id">
+					<button type="submit" value="edit_user_info" name="edit_type">Save</button>
+				</div>
+				<div class="editbox inlineblock">
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								<p>{{message}}</p>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 					<p>Password:</p>
-					<input type="text" name="password"><br><br>
+					<input type="password" name="password"><br><br>
 					<p>Password Confirmation:</p>
-					<input type="text" name="pass_confirm"><br><br>
-					<button type="submit">Update Password</button>
-				</form>
-			</div>
-			{% if session['authorization'] == 1 or session['user_id'] == user['id'] %}
-			<div class="descriptionbox">
-				<p>Edit Description</p>
-				<form action="/change_description">
-					<textarea class="description"></textarea><br>
-					<button type="submit">Save</button>
-				</form>
-			</div>
-			{% endif %}
+					<input type="password" name="pass_confirm"><br><br>
+					<button type="submit" value="edit_password" name="edit_type">Update Password</button>
+				</div>
+				{% if session['authorization'] == 1 or session['user_id'] == user['id'] %}
+					<div class="descriptionbox">
+						<p>Edit Description</p>
+							<textarea class="description" value="{{user['description']}}" name="description"></textarea><br>
+							<button type="submit" value="edit_description" name="edit_type">Save</button>
+					</div>
+				{% else %}
+					<input type="hidden" value="{{user['description']}}" name="description">
+				{% endif %}
+			</form>
 		</div>
 	</body>
 </html>
